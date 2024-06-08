@@ -1,8 +1,7 @@
-import os
-
-
-def sorting_contents_file(name_file: str):
-    with open(name_file, 'r', encoding='utf-8') as file:
+def sorting_contents_file(name_file: str) -> list:
+    """ Функция читает исходный файл и преобразует его
+    в список с правильно оформленными именами, без символов и пробелов"""
+    with open(name_file, "r", encoding="utf-8") as file:
         content = file.readlines()
 
     new_file = []
@@ -11,11 +10,7 @@ def sorting_contents_file(name_file: str):
         new_file.append(sort_values)
 
     for file in new_file:
-        if file is "":
+        if file == "":
             new_file.remove(file)
 
-    for name in new_file:
-        print(name)
-
-
-sorting_contents_file('../data/names.txt')
+    return new_file
