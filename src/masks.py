@@ -21,7 +21,7 @@ def get_mask_account(account_number: int | str) -> str:
     Функция принимает номер счёта и возвращает маскировку счета
     в формате: "** 4цифры счета"
     """
-    
+
     account_number_string = str(account_number)
 
     return f"**{account_number_string[-4:]}"

@@ -1,8 +1,10 @@
 import os
+from typing import Any
+
 """ Импортируем библиотеку os """
 
 
-def find_to_directory(folder_path: str = os.getcwd(), recursive_counting: str | int = None) -> dict:
+def find_to_directory(folder_path: str = os.getcwd(), recursive_counting: Any = None) -> dict:
     """
     Функция принимает путь до директории и возвращает кол-во файлов и папок в директории
     """
