@@ -17,3 +17,9 @@ def mask_account_card(account_information: str) -> str:
         masks_account_information += get_mask_card_number(account_number)
 
     return masks_account_information
+
+
+def get_data(info_data: str) -> str:
+    data_day = info_data.split('T')[0]
+
+    return f"{data_day.split('-')[-1]}.{data_day.split('-')[-2]}.{data_day.split('-')[-3]}"
