@@ -30,3 +30,26 @@ def get_data(info_data: str) -> str:
     data_day = info_data.split("T")[0]
 
     return f"{data_day.split('-')[-1]}.{data_day.split('-')[-2]}.{data_day.split('-')[-3]}"
+
+
+def formatting_the_list(a_list_of_lines: list[str]) -> list:
+    new_list = []
+    for line in a_list_of_lines:
+        if line == '' or line[0] == line[-1]:
+            new_list.append(line)
+
+    return new_list
+
+
+def multiply_the_numbers(list_of_numbers: list[int]) -> int:
+    new_list = list()
+    for num in list_of_numbers:
+        num_str = str(num).replace('-', '')
+        new_list.append(int(num_str))
+
+    sort_list = sorted(new_list)
+
+    if len(sort_list) < 2:
+        return 0
+    else:
+        return sort_list[-1] * sort_list[-2]
