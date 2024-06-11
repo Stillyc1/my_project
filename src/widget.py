@@ -60,4 +60,4 @@ def multiply_the_numbers(list_of_numbers: list[int]) -> int:
     if len(sort_list) < 2:
         return 0
     else:
-        return sort_list[-1] * sort_list[-2]
+        return int(sort_list[-1] * sort_list[-2])
