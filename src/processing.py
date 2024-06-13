@@ -1,3 +1,6 @@
+from typing import Any
+
+
 def filter_by_state(info_users: list[dict], state: str = 'EXECUTED') -> list[dict]:
     sort_info_users = []
     for info in info_users:
@@ -5,3 +8,10 @@ def filter_by_state(info_users: list[dict], state: str = 'EXECUTED') -> list[dic
             sort_info_users.append(info)
 
     return sort_info_users
+
+
+def sort_by_date(info_dicts: list[dict], sorting_parameter: Any = None) -> list[dict]:
+    if sorting_parameter is not None:
+        return sorted(info_dicts, key=lambda date: date['date'])
+    else:
+        return sorted(info_dicts, key=lambda date: date['date'], reverse=True)
