@@ -9,7 +9,7 @@ def filter_by_state(info_users: list[dict], state: str = "EXECUTED") -> list[dic
 
 
 def sort_by_date(info_dicts: list[dict], sorting_parameter: bool = True) -> list[dict]:
-    """Функция сортирует список словарей по параметру 'date' """
+    """ Функция сортирует список словарей по параметру 'date' """
     if sorting_parameter is not True:
         return sorted(info_dicts, key=lambda date: date["date"])
     else:
