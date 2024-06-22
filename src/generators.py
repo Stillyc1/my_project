@@ -1,15 +1,24 @@
 def filter_by_currency(transaction, currency):
+    """
+    Функция итерирует и возвращает операции из списка словарей transaction по параметру currency
+    """
     for trans in transaction:
         if trans["operationAmount"]["currency"]["code"] == currency:
             yield trans
 
 
 def transaction_descriptions(transaction):
+    """
+    генератор принимает список словарей и возвращает описание каждой операции по очереди
+    """
     for trans in transaction:
         yield trans["description"]
 
 
 def card_number_generator(first, last):
+    """
+    генератор итерирует и возвращает номера карт в заданном диапазоне
+    """
     for card in range(first, last+1):
         card_numbers = str(card)
         while len(card_numbers) < 16:
