@@ -6,4 +6,4 @@ def test_log():
     def my_function(x, y):
         return x + y
 
-    assert my_function(1, 2) == 3
+    assert my_function(5, 3) == 8
