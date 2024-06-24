@@ -9,11 +9,20 @@ def test_log():
     assert my_function(1, 2) == 3
 
 
-def test_log_if_no_arg(capsys):
+def test_log_if_no_arg():
     @log()
     def my_function(x, y):
         return x + y
 
     my_function(1, 2)
-    captured = capsys.readouterr()
-    assert "3\nmy_function ok.\n" in captured.out
+    assert my_function(1, 2) == "3\nmy_function ok"
+
+
+def test_log_if_error():
+    @log()
+    def my_function(x, y):
+        return x + y
+
+    my_function(1, [])
+    assert my_function(1, []) == ("my_function error: unsupported operand type(s)"
+                                  " for +: 'int' and 'list'. Inputs: (1, []), {}")
