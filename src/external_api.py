@@ -1,7 +1,7 @@
 import os
+
 import requests
 from dotenv import load_dotenv
-
 
 # импортируем данные из файла .env
 load_dotenv()
