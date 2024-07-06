@@ -110,3 +110,18 @@ def info_transaction():
         }
       }
     ]
+
+
+@pytest.fixture
+def info_trans():
+    return {
+        "id": 441945886,
+        "state": "EXECUTED",
+        "date": "2019-08-26T10:50:58.294041",
+        "operationAmount": {
+          "amount": "31957.58",
+          "currency": {
+            "code": "RUB"
+          }
+        }
+      }
