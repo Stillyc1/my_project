@@ -7,7 +7,7 @@ def get_info_transactions(path_file: str) -> list[dict]:
     в формате list[dict]
     """
     try:
-        with open(path_file, encoding='UTF-8') as file:
+        with open(path_file, encoding="UTF-8") as file:
             try:
                 file_dict = json.load(file)
                 if type(file_dict) is not list:

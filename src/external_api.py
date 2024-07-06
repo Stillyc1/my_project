@@ -22,13 +22,11 @@ def converting_amount_transactions(transaction: dict) -> float:
         payload = {
             "amount": transaction["operationAmount"]["amount"],
             "from": transaction["operationAmount"]["currency"]["code"],
-            "to": "RUB"
+            "to": "RUB",
         }
 
-        headers = {
-            "apikey": API_KEY
-        }
+        headers = {"apikey": API_KEY}
 
-        response = requests.get(url, headers=headers, params=payload)
+        response = requests.get(str(url), headers=headers, params=payload)
 
         return round(float(response.json()["result"]), 2)
