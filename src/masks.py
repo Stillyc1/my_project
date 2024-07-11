@@ -1,10 +1,12 @@
 import logging
 
 """ создаем логгер для логирования функций и пишем логи в директорию logs"""
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s:%(name)s - %(levelname)s - %(message)s',
-                    filename='../logs/masks.log',  # Запись логов в файл
-                    filemode='w')  # Перезапись файла при каждом запуске
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s:%(name)s - %(levelname)s - %(message)s",
+    filename="../logs/masks.log",  # Запись логов в файл
+    filemode="w",
+)  # Перезапись файла при каждом запуске
 logger = logging.getLogger("masks.py")
 
 

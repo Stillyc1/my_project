@@ -125,3 +125,13 @@ def info_trans():
           }
         }
       }
+
+
+@pytest.fixture
+def test_info_csv():
+    return ['id', 'state', 'date', 'amount', 'currency_name', 'currency_code', 'from', 'to', 'description']
+
+
+@pytest.fixture
+def test_info_xlcx():
+    return ['state', 'date', 'amount', 'currency_name', 'currency_code', 'from', 'to', 'description']
