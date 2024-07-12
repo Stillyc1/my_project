@@ -42,10 +42,10 @@ def get_info_transactions(path_file: str) -> list[dict]:
         return []
 
 
-def get_info_transactions_csv(path_file: str) -> pd.DataFrame | list:
+def get_info_transactions_csv(path_file: str) -> list[dict] | list:
     """
     Функция принимает путь до файла и возвращает операции в исходном файле
-    в формате pd.DataFrame
+    в формате list[dict]
     """
     try:
         logger.info("Открываем файл...")
@@ -60,7 +60,7 @@ def get_info_transactions_csv(path_file: str) -> pd.DataFrame | list:
                     return []
 
                 logger.info("файл корректный, возвращаем содержимое")
-                return file_dict
+                return file_dict.to_dict(orient="records")
             except json.JSONDecodeError:
                 logger.warning("файл не может быть прочитан, неверный формат")
                 return []
@@ -70,10 +70,10 @@ def get_info_transactions_csv(path_file: str) -> pd.DataFrame | list:
         return []
 
 
-def get_info_transactions_xlsx(path_file: str) -> pd.DataFrame | list:
+def get_info_transactions_xlsx(path_file: str) -> list[dict] | list:
     """
     Функция принимает путь до файла и возвращает операции в исходном файле
-    в формате pd.DataFrame
+    в формате list[dict]
     """
     try:
         logger.info("Открываем файл...")
@@ -86,7 +86,7 @@ def get_info_transactions_xlsx(path_file: str) -> pd.DataFrame | list:
             return []
 
         logger.info("файл корректный, возвращаем содержимое")
-        return file_dict
+        return file_dict.to_dict(orient="records")
     except json.JSONDecodeError:
         logger.warning("файл не может быть прочитан, неверный формат")
         return []
@@ -94,3 +94,7 @@ def get_info_transactions_xlsx(path_file: str) -> pd.DataFrame | list:
     except FileNotFoundError:
         logger.warning("файл не найден, неверный путь до файла")
         return []
+
+
+print(get_info_transactions_csv("../data/transactions.csv")[0])
+print(get_info_transactions_xlsx("../data/transactions_excel.xlsx")[0])

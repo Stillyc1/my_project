@@ -10,7 +10,7 @@ def test_get_info_transactions(info_transaction):
 
 def test_get_info_transactions_csv(test_info_csv, test_info_xlcx):
     info_csv = list(get_info_transactions_csv("../data/transactions.csv"))
-    assert info_csv == test_info_csv
+    assert info_csv[0] == test_info_csv
 
     info_xlsx = list(get_info_transactions_xlsx("../data/transactions_excel.xlsx"))
-    assert info_xlsx == test_info_xlcx
+    assert info_xlsx[0] == test_info_xlcx
