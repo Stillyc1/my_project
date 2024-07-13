@@ -94,7 +94,3 @@ def get_info_transactions_xlsx(path_file: str) -> list[dict] | list:
     except FileNotFoundError:
         logger.warning("файл не найден, неверный путь до файла")
         return []
-
-
-print(get_info_transactions_csv("../data/transactions.csv")[0])
-print(get_info_transactions_xlsx("../data/transactions_excel.xlsx")[0])

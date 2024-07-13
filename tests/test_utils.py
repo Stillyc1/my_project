@@ -1,4 +1,5 @@
 from src.utils import get_info_transactions, get_info_transactions_csv, get_info_transactions_xlsx
+from unittest.mock import patch, mock_open
 
 
 def test_get_info_transactions(info_transaction):
@@ -14,3 +15,12 @@ def test_get_info_transactions_csv(test_info_csv, test_info_xlcx):
 
     info_xlsx = list(get_info_transactions_xlsx("../data/transactions_excel.xlsx"))
     assert info_xlsx[0] == test_info_xlcx
+
+
+@patch("builtins.open", new_callable=mock_open, read_data="data")
+def test_get_info_transactions_csv_xlsx(mock_file):
+    assert open("../Data/test_transactions.csv").read() == "data"
+    mock_file.assert_called_with("../Data/test_transactions.csv")
+
+    assert open("../Data/transactions_excel.xlsx").read() == "data"
+    mock_file.assert_called_with("../Data/transactions_excel.xlsx")
