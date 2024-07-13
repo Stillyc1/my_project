@@ -1,5 +1,6 @@
 from src.utils import get_info_transactions, get_info_transactions_csv, get_info_transactions_xlsx
-from unittest.mock import patch, mock_open
+from unittest.mock import patch, mock_open, Mock
+import pandas as pd
 
 
 def test_get_info_transactions(info_transaction):
@@ -9,7 +10,11 @@ def test_get_info_transactions(info_transaction):
     assert get_info_transactions("../data/test.operations.json") == info_transaction
 
 
+@patch("tests.test_utils.pd.read_csv")
 def test_get_info_transactions_csv(test_info_csv, test_info_xlcx):
+    Mock.return_value = pd.DataFrame()
+    assert get_info_transactions_csv('foo') == []
+
     info_csv = list(get_info_transactions_csv("../data/transactions.csv"))
     assert info_csv[0] == test_info_csv
 
