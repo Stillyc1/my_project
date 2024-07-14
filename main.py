@@ -1,3 +1,5 @@
+from src.utils import get_info_transactions, get_info_transactions_csv, get_info_transactions_xlsx
+from src.processing import filter_by_state
 
 
 def main():
@@ -15,10 +17,13 @@ def main():
     else:
         if input_user_file == "1":
             print("\nДля обработки выбран JSON-файл.")
+            result = get_info_transactions("../data/operations.json")  # Пока что без вызова
         elif input_user_file == "2":
             print("\nДля обработки выбран CSV-файл.")
+            result = get_info_transactions_csv("../data/transactions.csv")  # Пока что без вызова
         elif input_user_file == "3":
             print("\nДля обработки выбран XLSX-файл.")
+            result = get_info_transactions_xlsx("../data/transactions_excel.xlsx")  # Пока что без вызова
 
     next_choice_state = '''\nВведите статус, по которому необходимо выполнить фильтрацию. 
 Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING'''
@@ -30,6 +35,7 @@ def main():
     else:
         if input_user_state == "EXECUTED":
             print('\nОперации отфильтрованы по статусу "EXECUTED"')
+            next_ = filter_by_state(result)
         elif input_user_state == "CANCELED":
             print('\nОперации отфильтрованы по статусу "CANCELED"')
         elif input_user_state == "PENDING":
