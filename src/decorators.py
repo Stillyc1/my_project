@@ -16,17 +16,17 @@ def log(filename: Any = None) -> Callable:
             if filename is None:
                 try:
                     result = func(*args, **kwargs)
-                    return f"{result}\nmy_function ok"
+                    return f"{result}\n{func} ok"
                 except Exception as e:
-                    return f"my_function error: {e}. Inputs: {args}, {kwargs}"
+                    return f"{func} error: {e}. Inputs: {args}, {kwargs}"
             else:
                 try:
                     func(*args, **kwargs)
                     with open(filename, "a") as file:
-                        file.write("my_function ok\n")
+                        file.write(f"{func} ok\n")
                 except Exception as e:
                     with open(filename, "a") as file:
-                        file.write(f"my_function error: {e}. Inputs: {args}, {kwargs}\n")
+                        file.write(f"{func} error: {e}. Inputs: {args}, {kwargs}\n")
                 return func(*args, **kwargs)
 
         return wrapper

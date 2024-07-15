@@ -2,6 +2,8 @@
 import logging
 
 import pandas as pd
+from src.decorators import log
+
 
 """ создаем логгер для логирования функций и пишем логи в директорию logs"""
 logging.basicConfig(
@@ -13,6 +15,7 @@ logging.basicConfig(
 logger = logging.getLogger("utils.py")
 
 
+@log("logs/work_func.txt")
 def get_info_transactions(path_file: str) -> list[dict]:
     """
     Функция принимает путь до файла и возвращает операции в исходном файле
@@ -42,6 +45,7 @@ def get_info_transactions(path_file: str) -> list[dict]:
         return []
 
 
+@log("logs/work_func.txt")
 def get_info_transactions_csv(path_file: str) -> list[dict] | list:
     """
     Функция принимает путь до файла и возвращает операции в исходном файле
@@ -70,6 +74,7 @@ def get_info_transactions_csv(path_file: str) -> list[dict] | list:
         return []
 
 
+@log("logs/work_func.txt")
 def get_info_transactions_xlsx(path_file: str) -> list[dict] | list:
     """
     Функция принимает путь до файла и возвращает операции в исходном файле

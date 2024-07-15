@@ -1,4 +1,6 @@
 import logging
+from src.decorators import log
+
 
 """ создаем логгер для логирования функций и пишем логи в директорию logs"""
 logging.basicConfig(
@@ -10,6 +12,7 @@ logging.basicConfig(
 logger = logging.getLogger("masks.py")
 
 
+@log("logs/work_func.txt")
 def get_mask_card_number(number_card: int | str) -> str:
     """
     Функция принимает номер карты и возвращает
@@ -30,6 +33,7 @@ def get_mask_card_number(number_card: int | str) -> str:
     return mask_number_card
 
 
+@log("logs/work_func.txt")
 def get_mask_account(account_number: int | str) -> str:
     """
     Функция принимает номер счёта и возвращает маскировку счета

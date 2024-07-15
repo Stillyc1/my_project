@@ -3,8 +3,10 @@ from src.processing import filter_by_state, sort_by_date
 from src.generators import filter_by_currency
 from src.find_transactions import find_transactions
 from src.widget import get_data, mask_account_card
+from src.decorators import log
 
 
+@log("logs/main_1.txt")
 def main() -> str:
     greeting = '''Привет! Добро пожаловать в программу работы 
 с банковскими транзакциями. 
@@ -26,10 +28,10 @@ def main() -> str:
             # Функция чтения json формата -> list[dict]
         elif input_user_file == "2":
             print("\nДля обработки выбран CSV-файл.")
-            result = get_info_transactions_csv("transactions.csv")  # Функция чтения csv формата - -||-
+            result = get_info_transactions_csv("data/transactions.csv")  # Функция чтения csv формата - -||-
         elif input_user_file == "3":
             print("\nДля обработки выбран XLSX-файл.")
-            result = get_info_transactions_xlsx("transactions_excel.xlsx")  # Функция чтения xlsx формата - -||-
+            result = get_info_transactions_xlsx("data/transactions_excel.xlsx")  # Функция чтения xlsx формата - -||-
 
     next_choice_state = '''\nВведите статус, по которому необходимо выполнить фильтрацию. 
 Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING'''
@@ -98,7 +100,8 @@ def main() -> str:
             word_filter = input("Введите слово для поиска:\n")
 
             if input_user_rub == "да":
-                result = find_transactions(list(*result), word_filter)  # функция фильтрует операции
+                list_result = [r for r in [*result]]
+                result = find_transactions([*result], word_filter)  # функция фильтрует операции
                 # по слову word_filter в описании ["description"] -> list[dict]
             else:
                 result = find_transactions(result, word_filter)  # функция фильтрует операции
@@ -113,13 +116,13 @@ def main() -> str:
         for i in result:
             data = get_data(i["date"])
             description = i["description"]
-            from_ = mask_account_card(i["from"])
-            to_ = mask_account_card(i["to"])
+            from_ = mask_account_card(i.get("from", ""))
+            to_ = mask_account_card(i.get("to", ""))
             amount = i["operationAmount"]["amount"]
             name = i["operationAmount"]["currency"]["name"]
 
-            print(f"{data} {description}\n{from_} -> {to_}\nСумма: {amount} {name}")
-
+            print(f"{data} {description}\n{from_} -> {to_}\nСумма: {amount} {name}\n")
+    return 'finish'
 
 if __name__ == "__main__":
     main()
