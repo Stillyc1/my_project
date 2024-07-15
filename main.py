@@ -2,6 +2,7 @@ from src.utils import get_info_transactions, get_info_transactions_csv, get_info
 from src.processing import filter_by_state, sort_by_date
 from src.generators import filter_by_currency
 from src.find_transactions import find_transactions
+from src.widget import get_data, mask_account_card
 
 
 def main():
@@ -21,13 +22,14 @@ def main():
 
         if input_user_file == "1":
             print("\nДля обработки выбран JSON-файл.")
-            result = get_info_transactions("../data/operations.json")  # Функция чтения json формата -> list[dict]
+            result = get_info_transactions("data/operations.json")
+            # Функция чтения json формата -> list[dict]
         elif input_user_file == "2":
             print("\nДля обработки выбран CSV-файл.")
-            result = get_info_transactions_csv("../data/transactions.csv")  # Функция чтения csv формата - -||-
+            result = get_info_transactions_csv("transactions.csv")  # Функция чтения csv формата - -||-
         elif input_user_file == "3":
             print("\nДля обработки выбран XLSX-файл.")
-            result = get_info_transactions_xlsx("../data/transactions_excel.xlsx")  # Функция чтения xlsx формата - -||-
+            result = get_info_transactions_xlsx("transactions_excel.xlsx")  # Функция чтения xlsx формата - -||-
 
     next_choice_state = '''\nВведите статус, по которому необходимо выполнить фильтрацию. 
 Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING'''
@@ -46,7 +48,7 @@ def main():
         elif input_user_state == "PENDING":
             print('\nОперации отфильтрованы по статусу "PENDING"')
 
-    result_state = filter_by_state(result, input_user_state)  # Функция фильтрации операций по статусу "state"
+    result = filter_by_state(result, input_user_state)  # Функция фильтрации операций по статусу "state"
     # ->  list[dict]
 
     next_choice_data = '''\nОтсортировать операции по дате? Да/Нет'''
@@ -68,10 +70,10 @@ def main():
             else:
 
                 if input_user_ascending == "по убыванию":
-                    result_asceding = sort_by_date(result_state)  # функция сортирует операции по дате (по убыванию)
+                    result = sort_by_date(result)  # функция сортирует операции по дате (по убыванию)
                     # -> list[dict]
                 elif input_user_ascending == "по возрастанию":
-                    result_asceding = sort_by_date(result_state, False)  # функция сортирует операции
+                    result = sort_by_date(result, False)  # функция сортирует операции
                     # по дате (по возрастанию) -> list[dict]
 
     next_choice_rub = '''\nВыводить только рублевые тразакции? Да/Нет'''
@@ -83,7 +85,7 @@ def main():
     else:
 
         if input_user_rub == "да":
-            result_rub = filter_by_currency(result_asceding, "RUB")  # Функция-генератор
+            result = filter_by_currency(result, "RUB")  # Функция-генератор
             # фильтрует операции по ["currency"] ["RUB"] -> возвращает по одной транзакции
 
     next_choice_word = '''\nОтфильтровать список транзакций по определенному слову в описании? Да/Нет'''
@@ -96,15 +98,27 @@ def main():
             word_filter = input("Введите слово для поиска:\n")
 
             if input_user_rub == "да":
-                result_word = find_transactions(list(*result_rub), word_filter)  # функция фильтрует операции
-                    # по слову word_filter в описании ["description"] -> list[dict]
+                result = find_transactions(list(*result), word_filter)  # функция фильтрует операции
+                # по слову word_filter в описании ["description"] -> list[dict]
             else:
-                result_word = find_transactions(result_asceding, word_filter)  # функция фильтрует операции
-                    # по слову word_filter в описании ["description"] -> list[dict]
+                result = find_transactions(result, word_filter)  # функция фильтрует операции
+                # по слову word_filter в описании ["description"] -> list[dict]
 
     print("Распечатываю итоговый список транзакций...\n")
-    print(f"Всего банковских операций в выборке: {len(result_word)}")
+    print(f"Всего банковских операций в выборке: {len(result)}")
 
+    if result is []:
+        return "Не найдено ни одной транзакции, подходящей под ваши условия фильтрации"
+    else:
+        for i in result:
+            data = get_data(i["date"])
+            description = i["description"]
+            from_ = mask_account_card(i["from"])
+            to_ = mask_account_card(i["to"])
+            amount = i["operationAmount"]["amount"]
+            name = i["operationAmount"]["currency"]["name"]
+
+            print(f"{data} {description}\n{from_} -> {to_}\nСумма: {amount} {name}")
 
 
 if __name__ == "__main__":
