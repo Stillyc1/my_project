@@ -7,7 +7,7 @@ import pandas as pd
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s:%(name)s - %(levelname)s - %(message)s",
-    filename="../logs/utils.log",  # Запись логов в файл
+    filename="C:/Users/user/PycharmProjects/my_project/logs/utils.log",  # Запись логов в файл
     filemode="w",
 )  # Перезапись файла при каждом запуске
 logger = logging.getLogger("utils.py")

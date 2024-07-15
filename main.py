@@ -5,7 +5,7 @@ from src.find_transactions import find_transactions
 from src.widget import get_data, mask_account_card
 
 
-def main():
+def main() -> str:
     greeting = '''Привет! Добро пожаловать в программу работы 
 с банковскими транзакциями. 
 Выберите необходимый пункт меню:\n
@@ -122,4 +122,4 @@ def main():
 
 
 if __name__ == "__main__":
-    print(main())
+    main()
