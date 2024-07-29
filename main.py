@@ -124,5 +124,6 @@ def main() -> str:
             print(f"{data} {description}\n{from_} -> {to_}\nСумма: {amount} {name}\n")
     return 'finish'
 
+
 if __name__ == "__main__":
     main()
