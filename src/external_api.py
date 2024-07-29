@@ -2,6 +2,7 @@ import os
 
 import requests
 from dotenv import load_dotenv
+from src.decorators import log
 
 # импортируем данные из файла .env
 load_dotenv()
@@ -9,6 +10,7 @@ API_KEY = os.getenv("API_KEY")
 URL_CONVERT = os.getenv("URL_CONVERT")
 
 
+@log("logs/work_func.txt")
 def converting_amount_transactions(transaction: dict) -> float:
     """
     Функция принимает транзакцию вида dict и возвращает сумму транзакции,

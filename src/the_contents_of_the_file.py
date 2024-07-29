@@ -1,6 +1,8 @@
 from typing import Any
+from src.decorators import log
 
 
+@log("logs/work_func.txt")
 def sorting_contents_file(name_file: Any) -> list:
     """Функция читает исходный файл и преобразует его
     в список с правильно оформленными именами, без символов и пробелов"""

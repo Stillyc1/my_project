@@ -1,8 +1,10 @@
 from src.masks import get_mask_account, get_mask_card_number
+from src.decorators import log
 
 """Импортируем функции из модуля masks.py"""
 
 
+@log("logs/work_func.txt")
 def mask_account_card(account_information: str) -> str:
     """
     Функция принимает номер карты\\счета (в формате "карта\\счет (номер карты\\счета)
@@ -25,6 +27,7 @@ def mask_account_card(account_information: str) -> str:
     return masks_account_information
 
 
+@log("logs/work_func.txt")
 def get_data(info_data: str) -> str:
     """Функция принимает дату и преобразует в формат дд.мм.гггг"""
     data_day = info_data.split("T")[0]
@@ -32,6 +35,7 @@ def get_data(info_data: str) -> str:
     return f"{data_day.split('-')[-1]}.{data_day.split('-')[-2]}.{data_day.split('-')[-3]}"
 
 
+@log("logs/work_func.txt")
 def formatting_the_list(a_list_of_lines: list[str]) -> list:
     """
     Функция принимает на вход список строк
@@ -45,6 +49,7 @@ def formatting_the_list(a_list_of_lines: list[str]) -> list:
     return new_list
 
 
+@log("logs/work_func.txt")
 def multiply_the_numbers(list_of_numbers: list[int]) -> int:
     """
     Функция принимает на вход список целых чисел
